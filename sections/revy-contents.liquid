@@ -1,0 +1,63 @@
+<div data-section-id="{{ section.id }}">
+{% for block in section.blocks %}
+	<div class="revy-content section section-{{ block.id }} {% if forloop.first == true %}opened{% endif %}" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+		<div class="revy-custom-content-section-content">
+          {{ block.settings.revy-content-section }}
+        </div>
+	</div>
+{% endfor %}
+</div>
+
+{% schema %}
+	{
+		"name": "Revy Contents",
+		"max_blocks": 20,
+		"blocks" : [
+			{
+				"type": "html",
+				"name": "Revy Content",
+				"settings": [
+					{
+						"type": "textarea",
+						"id": "revy-content-section",
+						"default": "<!-- Put Revy Content Here -->",
+						"label": "Revy Content"
+					}
+				]
+			}
+		],
+		"presets": [
+			{
+				"name": "Revy Content",
+				"category": "Revy Apps",
+				"blocks": [
+					{
+						"type": "html"
+					}
+				]
+			}
+		]
+	}
+{% endschema %}
+
+
+{% stylesheet %}
+.revy-custom-content-section-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 10px;
+    max-width: 100%;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

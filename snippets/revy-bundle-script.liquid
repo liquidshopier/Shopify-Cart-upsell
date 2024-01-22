@@ -1,0 +1,7 @@
+<script> 
+  window.revyBundleThemeSettings = { 
+  	cart: {{ cart | json }},
+    locale: '{{ request.locale.iso_code }}'
+  }; 
+</script>
+<script async src="https://api.revy.io/bundle.js?shop=accelerated-test-store.myshopify.com" type="text/javascript"></script>

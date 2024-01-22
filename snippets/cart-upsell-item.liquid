@@ -1,0 +1,36 @@
+<div class="cartupsell-item">
+  <div class="cartupsell-panel">
+    <div class="cartupsell-image-panel">
+      <a href="{{ upsell_product.url }}">
+        <img src="{{ upsell_product.featured_image | img_url: '150x' }}" class="cartupsell-img">
+      </a>
+    </div>
+    <div class="cartupsell-data-panel">
+      <div class="cartupsell-product-data">
+        <span class="cartupsell-product-title">
+          <a href="{{ upsell_product.url }}">
+            {{- upsell_product.title -}} | 
+          </a>
+        </span>
+        <span class="cartupsell-product-price">
+          {{ upsell_product.selected_or_first_available_variant.price | money_with_currency -}}
+        </span>
+      </div>
+      <input type="hidden" value="{{ upsell_product.selected_or_first_available_variant.id }}" name="id" />
+      <input type="hidden" value="1" name="quantity" />
+      <upsell-add-button data-index="{{ upsell_product.selected_or_first_available_variant.id }}">
+        <button class="btn-add-order"
+          {% unless upsell_product.selected_or_first_available_variant.available %}
+            disabled="disabled"
+          {% endunless %}
+        >
+          {% if upsell_product.selected_or_first_available_variant.available %}
+            Add to order
+          {% else %}
+            Sold out
+          {% endif %}
+        </button>
+      </upsell-add-button>
+    </div>
+  </div>
+</div>

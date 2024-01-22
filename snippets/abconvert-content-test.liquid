@@ -1,0 +1,29 @@
+<script id="ABConvert-content-test-v0">
+var abconvertCssSettings = {"_id":"64ca7faf82c4960cdac2923c","storeName":"accelerated-test-store.myshopify.com","singleVariantSelector":"","productCardClass":"card-wrapper,product-item,grid-product__wrapper,collection-list__item,grid__item,grid-product,product-grid-item,product-card,grid-item,product-block,ProductItem,product","productPageDelay":0,"isPureVariantName":true,"bundleClassName":"vtl-ub-bundle-box__product-list,cbb-frequently-bought-container,th_pb_list_ul,bold-bundles-widget__items","isLocaleDecimal":false,"headIndex":0,"includeAtTop":false,"isSavingAmountExist":false,"isNotShowingDecimal":false,"isAttributeQuerySelector":false,"fromText":"From","hasRecommendationProduct":false,"bundleDelay":0,"hasColorSwatch":false,"isColorSwatchClassName":false,"inventoryNotificationButtonClass":"","customScript":"","hasVariantWizardSwatch":false,"needSelectFirstVariant":false,"hasCandyRackUpsell":false,"__v":0};
+
+var abconvertLiquidVariables = {
+    abconvertProduct : {{ product | json }},
+    shopMoneyFormat: {{ shop.money_format | json }},
+    shopMoneyWithCurrencyFormat : {{ shop.money_with_currency_format | json }},
+    currencySymbol: {{ cart.currency.symbol | json }},
+    currencyCode: {{ cart.currency.iso_code | json }},
+    shopifyProductId: {{ product.id | json }},
+    shopifyProductHandle: {{ product.handle | json }},
+    pageType: {{ request.page_type | json }}, // product, index, search, collections
+    shopifySelectedOrFirstAvailableVariantId: {{ product.selected_or_first_available_variant.id | json }},
+};
+Object.keys(abconvertCssSettings).forEach(function(key) { 
+    if(key!='storeName' && key!='__v' && key!='_id'){ 
+        window[key] = abconvertCssSettings[key]; 
+    } 
+});
+
+Object.keys(abconvertLiquidVariables).forEach(function(key) {
+    window[key] = abconvertLiquidVariables[key];
+});
+
+
+var abconvertContentTestDict = {"handleToOrignalHandle":{},"testHandles":[]};
+ window.abconvertContentTestDict = abconvertContentTestDict;
+(()=>{"use strict";(()=>{async function e(e){let t="https://app.abconvert.io/api/observe?data="+btoa(JSON.stringify(e));fetch(t,{mode:"cors"}).then((e=>{e.ok?console.log("Product view"):console.log("Failed to send product view event")}))}function t(e){const t=function(){let e=localStorage.getItem("abconvert-seed");return null==e&&(e=Math.floor(100*Math.random()).toString(),localStorage.setItem("abconvert-seed",e)),e}();let o,n=0;for(o=0;o<e.length;++o)if(n+=e[o].percentage,Number(t)<n)return o;return o}function o(e){if(document.referrer){const t=new URL(document.referrer);if(t.pathname.includes("/products/"))return decodeURI(t.pathname).replace("/products/","").includes(e)}return!1}function n(){var n,r;let c=arguments.length>0&&void 0!==arguments[0]?arguments[0]:-1;if(null!==(n=abconvertContentTestDict)&&void 0!==n&&null!==(r=n.handleToOrignalHandle)&&void 0!==r&&r[window.shopifyProductHandle]){var i,d;console.log("content product exist");const n=null===(i=abconvertContentTestDict)||void 0===i||null===(d=i.handleToOrignalHandle)||void 0===d?void 0:d[window.shopifyProductHandle],r=abconvertContentTestDict[n];let a;if(a=-1!=c?c>=r.length?0:c:t(r),o(r[a].handle)||o(n)){if(!window.sessionStorage.getItem(r.productId)){const t={productIndex:r[a].productIndex,productId:r[a].productId,groupIndex:a,experimentId:r[a].experimentId};-1==c&&(e(t),window.sessionStorage.setItem(r.productId,"true"))}}else{let e=location.pathname.split("/");e[e.length-1]=r[a].handle;const t=e.join("/");window.location.href=t+window.location.search}}}function r(e,t){const o=e.querySelectorAll("a");if(o)return Array.from(o).filter((e=>{if(!e.href)return!1;const o=new URL(e.href).pathname.split("/");return o[o.length-1]==encodeURI(`${t}`)})).length>0;if("A"==e.nodeName){if(!e.href)return!1;const o=new URL(e.href).pathname.split("/");return o[o.length-1]==encodeURI(`${t}`)}return!1}function c(){const e=function(){let e;return e=window.productCardClass?window.productCardClass.split(",").map((e=>"."+e)).join(","):["card-wrapper","product-item","grid-product__wrapper","collection-list__item","grid__item","grid-product","product-grid-item","product-card","grid-item","product-block","product__grid","ProductItem"].map((e=>"."+e)).join(","),document.querySelectorAll(e)}(),t=window.abconvertContentTestDict.testHandles;console.log("handle to remove: ",t);for(let o of e)t.forEach((e=>{r(o,e)&&(console.log("remove product card: ",e),o.remove())}))}console.log("running ABConvert content test script");try{!function(){var e;if("index"!=window.pageType&&"collection"!=window.pageType||(e=c,"complete"===document.readyState?(console.log("Window load already fired. Executing directly."),e()):window.addEventListener("load",e,!1)),"product"==window.pageType){const e=function(){const e=new URLSearchParams(location.search),t=e.get("preview");return t&&!isNaN(Number(t))?(window.sessionStorage.setItem("abconvert-preview-number",t),e.get("preview")):window.sessionStorage.getItem("abconvert-preview-number")}();e&&!isNaN(Number(e))?n(Number(e)):n()}}()}catch(e){console.log("[ABConvert] Error: ",e.message)}})()})();
+</script>

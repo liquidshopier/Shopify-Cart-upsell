@@ -1,0 +1,49 @@
+{% assign u_product1 = all_products[settings.u_product1] %}
+{% assign u_product2 = all_products[settings.u_product2] %}
+{% assign u_product3 = all_products[settings.u_product3] %}
+
+{% assign is_upsell1 = false %}
+{% assign is_upsell2 = false %}
+{% assign is_upsell3 = false %}
+
+{% for item in cart.items %}
+  {% if item.product.id == u_product1.id %}
+    {% assign is_upsell1 = true %}
+  {% elsif item.product.id == u_product2.id %}
+    {% assign is_upsell2 = true %}
+  {% elsif item.product.id == u_product3.id %}
+    {% assign is_upsell3 = true %}
+  {% endif %}
+{% endfor %}
+
+{% unless is_upsell1 and is_upsell2 and is_upsell3 %}
+  <div class="cartupsell-panel">
+    <div class="cartupsell-slick-slider">
+      {% if settings.u_product1 and is_upsell1 == false %}
+        {% render 'cart-upsell-item', upsell_product: u_product1 %}
+      {% endif %}
+      {% if settings.u_product2 and is_upsell2 == false %}
+        {% render 'cart-upsell-item', upsell_product: u_product2 %}
+      {% endif %}
+      {% if settings.u_product3 and is_upsell3 == false %}
+        {% render 'cart-upsell-item', upsell_product: u_product3 %}
+      {% endif %}
+    </div>
+  </div>
+{% endunless %}
+
+<script>
+    $(document).ready(function() {
+        const slider = $('.cartupsell-slick-slider');
+        if (slider.children().length === 0) {
+        slider.slick('unslick');
+        } else {
+        slider.slick({
+            dots: true,
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        });
+        }
+  });
+</script>
