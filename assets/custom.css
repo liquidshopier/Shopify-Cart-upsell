@@ -12,7 +12,7 @@
     padding: 10px;
     border-radius: 5px;
     display: flex;
-    column-gap: 11px;
+    column-gap:10px;
 }
 
 .cartupsell-image-panel a {
