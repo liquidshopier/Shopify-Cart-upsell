@@ -1,3 +1,5 @@
+// Custom cart script
+
 class CartRemoveButton extends HTMLElement {
     constructor() {
         super();
